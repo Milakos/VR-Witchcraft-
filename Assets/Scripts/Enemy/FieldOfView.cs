@@ -7,18 +7,12 @@ using UnityEngine;
 public class FieldOfView : MonoBehaviour
 {
     public List<Transform> visibleObjects;
-    public Creature creature;
+    public EnemyBase enemy;
     
     [SerializeField] private Color _gizmoColor = Color.red;
     [SerializeField] private float _viewRadius = 6f;
     [SerializeField] private float _viewAngle = 30f;
     [SerializeField] private LayerMask _blockingLayers;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -28,19 +22,19 @@ public class FieldOfView : MonoBehaviour
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, _viewRadius);
         foreach (Collider target in targetsInViewRadius)
         {
-            if (!target.TryGetComponent(out Creature targetCreature))
+            if (!target.TryGetComponent(out EnemyBase targetCreature))
             {
-                targetCreature = target.GetComponentInParent<Creature>();
+                targetCreature = target.GetComponentInParent<EnemyBase>();
                 if(!targetCreature) continue;
             }
             
-            if (creature.team == targetCreature.team) continue;
+            if (enemy.enemyData.enemyType == targetCreature.enemyData.enemyType) continue;
 
             Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < _viewAngle)
             {
-                Vector3 headPos = creature.head.position;
+                Vector3 headPos = enemy.head.position;
                 Vector3 targetHeadPos = targetCreature.head.position;
 
                 Vector3 dirToTargetHead = (targetHeadPos - headPos).normalized;

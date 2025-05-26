@@ -9,7 +9,6 @@ public class Creature : MonoBehaviour
         Player = 0,
         Enemy = 1
     }
-    
     public Team team;
     public Transform head;
 }

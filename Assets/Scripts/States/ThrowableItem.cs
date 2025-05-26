@@ -95,6 +95,7 @@ public class ThrowState<TRigid> : IThrowableState where TRigid : Rigidbody
     private float _torque;
     private IThrowableState _throwableStateImplementation;
     private ThrowableItem _context;
+    private EnemyStateMachine enemy;
     public ThrowState(TRigid rb, float torque)
     {
         _rb = rb;
@@ -138,6 +139,7 @@ public class LandedState<TRigid> : IThrowableState where TRigid : Rigidbody
         _context = context;
         InitLand(true);
         _context.isLanded = true;
+        
     }
 
     public void FixedUpdate() { }
