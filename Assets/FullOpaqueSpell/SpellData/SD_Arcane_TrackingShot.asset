@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: SD_Arcane_TrackingShot
   m_EditorClassIdentifier: 
   spellName: Arcane Tracking Shot
-  incantationPrefab: {fileID: 3993457813523650357, guid: 37b2ecb8ea39ba14ba08bf397d8c3d18,
-    type: 3}
-  spellBurstPrefab: {fileID: 696709159327299983, guid: 00a731858e324e84f9f57e3d737a62d0,
-    type: 3}
-  mainSpellPrefab: {fileID: 8735408722482519607, guid: a048bcf1214005047861302d0a4515da,
-    type: 3}
+  incantationPrefab: {fileID: 3993457813523650357, guid: 37b2ecb8ea39ba14ba08bf397d8c3d18, type: 3}
+  spellBurstPrefab: {fileID: 696709159327299983, guid: 00a731858e324e84f9f57e3d737a62d0, type: 3}
+  mainSpellPrefab: {fileID: 8735408722482519607, guid: a048bcf1214005047861302d0a4515da, type: 3}
   castTime: 1
   cooldown: 1
   activationKey: 101

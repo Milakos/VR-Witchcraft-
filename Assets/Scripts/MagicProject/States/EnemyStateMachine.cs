@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyStateMachine : MonoBehaviour
 {
     [Header("Attributes")]
-    private IEnemyState currentState;
+    [HideInInspector] public IEnemyState currentState;
     public Animator animator;
     public NavMeshAgent _agent;
     public EnemyBase enemy;
@@ -16,11 +16,8 @@ public class EnemyStateMachine : MonoBehaviour
     
     [Header("Timers")]
     public float _threshold = 0.5f;
-    public float _stunnedTime = 3f;
-    
-    public float _waitTimer = 2f;
     public float waitTimer = 2.5f;
-    public float waitTime = 1.5f;
+    public float coolDownTimer = 2.0f;
     
     [Header("Misc")]
     internal Vector3 _investigationPoint;
@@ -32,11 +29,17 @@ public class EnemyStateMachine : MonoBehaviour
     public bool chase = false;
     public bool investigate = false;
     public bool attacking = false;
+    public bool stunned = false;
+    public bool dead = false;
     
     public bool _moving = false;
     public bool _forwardsAlongPath = true;
     public bool _playerFound = false;
     public bool _waiting = false;
+    
+    //Actions
+    public Action _onAttack;
+    public Action<float> _onHitted;
 
     private void Start()
     {
@@ -57,12 +60,41 @@ public class EnemyStateMachine : MonoBehaviour
     }
     public void PlayerFound(Vector3 investigatePoint)
     {
-        if (_playerFound) return;
-        
-        SetInvestigationPoint(investigatePoint);
-        enemy.stateMachine.ChangeState(new InvastigateEnemyState());
-        // onPlayerFound.Invoke(_fov.creature.head);
-
-        _playerFound = true;
+        if (Vector3.Distance(transform.position, _fov.visibleObjects[0].position) > 10f)
+        {
+            if (_playerFound) return;
+            SetInvestigationPoint(investigatePoint);
+            ChangeState(new InvastigateEnemyState());
+            _playerFound = true;  
+        }
+        else
+        {
+            _agent.isStopped = true;
+            ChangeState(new AttackEnemyState());
+        }
     }
+
+    public void FollowPlayer(Vector3 investigatePoint)
+    {
+        if (Vector3.Distance(transform.position, _fov.visibleObjects[0].position) > 10f)
+        {
+            SetInvestigationPoint(investigatePoint);
+        }
+    }
+
+    public void ReturnToPatrol()
+    {
+        Debug.Log("Enemy returning to patrol");
+        ChangeState(new IdleEnemyState());
+        _playerFound = false;
+        // _context._waitTimer = 0;
+    }
+    public IEnumerator WaitAtWaypoint()
+    {
+        _waiting = true;
+        yield return new WaitForSecondsRealtime(waitTimer);
+        _waiting = false;
+    }
+
+    public bool IsPlayerVisible() => _fov.visibleObjects.Count > 0;
 }

@@ -40,7 +40,18 @@ namespace FullOpaqueVFX
         {
             if (prefab != null)
             {
-                GameObject obj = Instantiate(prefab, position, rotation);
+                GameObject obj = Instantiate(prefab,position, rotation);
+                ApplyColorToParticles(obj);
+                return obj;
+            }
+            return null;
+        }
+        public GameObject SpawnEffect(GameObject prefab, Transform position, Quaternion rotation)
+        {
+            if (prefab != null)
+            {
+                GameObject obj = Instantiate(prefab, position.position, rotation);
+                obj.transform.SetParent(position);
                 ApplyColorToParticles(obj);
                 return obj;
             }

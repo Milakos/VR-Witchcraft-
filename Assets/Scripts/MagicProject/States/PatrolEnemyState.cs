@@ -13,7 +13,7 @@ public class PatrolEnemyState : IEnemyState
     }
     public void Execute()
     {
-        if (_context._fov.visibleObjects.Count > 0)
+        if (_context.IsPlayerVisible())
         {
             _context.PlayerFound(_context._fov.visibleObjects[0].position);
         }
@@ -31,15 +31,15 @@ public class PatrolEnemyState : IEnemyState
         if (!_context._moving)
         {
             NextPatrolPoint();
+            _context._agent.isStopped = false;
             _context._agent.SetDestination(_context._currentPoint.position);
             _context._moving = true;
         }
 
         if (_context._moving && Vector3.Distance(_context.transform.position, _context._currentPoint.position) < _context._threshold)
         {
-            _context._moving = false;
             _context.enemy.stateMachine.ChangeState(new IdleEnemyState());
-            _context.StartCoroutine(WaitAtWaypoint());
+            // _context.
         }
     }
 
@@ -71,10 +71,5 @@ public class PatrolEnemyState : IEnemyState
         }
         _context._currentPoint = _context._patrolRoute.route[_context._routeIndex];
     }
-    private IEnumerator WaitAtWaypoint()
-    {
-        _context._waiting = true;
-        yield return new WaitForSeconds(_context.waitTimer);
-        _context._waiting = false;
-    }
+
 }

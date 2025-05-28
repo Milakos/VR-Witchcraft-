@@ -6,38 +6,38 @@ using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
-    enum EnemyState
-    {
-        Patrol = 0,
-        Investigate = 1,
-        Stunned = 2
-    }
-    
-    [SerializeField] private NavMeshAgent _agent;
-    // [SerializeField] private Animator _animator;
-    [SerializeField] private float _threshold = 0.5f;
-    [SerializeField] private float _waitTime = 2f;
-    [SerializeField] private float _stunnedTime = 3f;
-    [SerializeField] private PatrolRoute _patrolRoute;
-    [SerializeField] private FieldOfView _fov;
-    [SerializeField] private EnemyState _state = EnemyState.Patrol;
-
-    public UnityEvent<Transform> onPlayerFound;
-    public UnityEvent onInvestigate;
-    public UnityEvent onReturnToPatrol;
-    public UnityEvent onStunned;
-
-    private bool _moving = false;
-    private Transform _currentPoint;
-    public int _routeIndex = 0;
-    private bool _forwardsAlongPath = true;
-    private Vector3 _investigationPoint;
-    private float _waitTimer = 0f;
-    private bool _playerFound = false;
-    private float _stunnedTimer = 0f;
-    
-    private bool _waiting = false;
-    public float waitTimer = 2.5f;
+    // enum EnemyState
+    // {
+    //     Patrol = 0,
+    //     Investigate = 1,
+    //     Stunned = 2
+    // }
+    //
+    // [SerializeField] private NavMeshAgent _agent;
+    // // [SerializeField] private Animator _animator;
+    // [SerializeField] private float _threshold = 0.5f;
+    // [SerializeField] private float _waitTime = 2f;
+    // [SerializeField] private float _stunnedTime = 3f;
+    // [SerializeField] private PatrolRoute _patrolRoute;
+    // [SerializeField] private FieldOfView _fov;
+    // [SerializeField] private EnemyState _state = EnemyState.Patrol;
+    //
+    // public UnityEvent<Transform> onPlayerFound;
+    // public UnityEvent onInvestigate;
+    // public UnityEvent onReturnToPatrol;
+    // public UnityEvent onStunned;
+    //
+    // private bool _moving = false;
+    // private Transform _currentPoint;
+    // public int _routeIndex = 0;
+    // private bool _forwardsAlongPath = true;
+    // private Vector3 _investigationPoint;
+    // private float _waitTimer = 0f;
+    // private bool _playerFound = false;
+    // private float _stunnedTimer = 0f;
+    //
+    // private bool _waiting = false;
+    // public float waitTimer = 2.5f;
 
     // Update is called once per frame
     void Update()

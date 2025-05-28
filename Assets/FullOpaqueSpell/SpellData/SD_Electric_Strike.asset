@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: SD_Electric_Strike
   m_EditorClassIdentifier: 
   spellName: Electric Strike
-  incantationPrefab: {fileID: 2905666689437318915, guid: 900d47d5e41299a489b37c6d69f8db0e,
-    type: 3}
-  spellBurstPrefab: {fileID: 7248386473986964264, guid: e4ffb7c105f326b4da101e6b12578bf2,
-    type: 3}
-  mainSpellPrefab: {fileID: 3300406336262876018, guid: d2b876535f2838740a1350517892a20c,
-    type: 3}
+  incantationPrefab: {fileID: 2905666689437318915, guid: 900d47d5e41299a489b37c6d69f8db0e, type: 3}
+  spellBurstPrefab: {fileID: 8026296608122095936, guid: 7add8d30c3249bf45a56ee5a5a60bf23, type: 3}
+  mainSpellPrefab: {fileID: 3300406336262876018, guid: d2b876535f2838740a1350517892a20c, type: 3}
   castTime: 1
   cooldown: 1
   activationKey: 101
@@ -32,4 +29,4 @@ MonoBehaviour:
   spellColor: {r: 1, g: 0.6666667, b: 0, a: 1}
   spellTargetBehavior: 1
   spellTracking: 0
-  spawnOnGround: 1
+  spawnOnGround: 0

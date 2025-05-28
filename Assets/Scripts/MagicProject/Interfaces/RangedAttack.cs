@@ -3,8 +3,11 @@ using UnityEngine.AI;
 
 public class RangedAttack : IAttackStrategy
 {
-    public void Attack(EnemyBase enemy)
+    
+    public void Attack(EnemyData enemy)
     {
-        Debug.Log($"{enemy.name} shoots an arrow!");
+        enemy.maxMana -= enemy.manaReduceRate;
+        // enemy.particleSystem.Play();
+        Debug.Log($"{enemy.name} Cast a Spell and Mana is {enemy.maxMana}");       
     }
 }

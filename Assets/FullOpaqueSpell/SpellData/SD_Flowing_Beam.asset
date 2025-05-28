@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: SD_Flowing_Beam
   m_EditorClassIdentifier: 
   spellName: Flowing Beam
-  incantationPrefab: {fileID: 2868296385495765804, guid: 503bd0f0096c8614cb518c7e0e13ee1a,
-    type: 3}
-  spellBurstPrefab: {fileID: 7435820690753171035, guid: e87b8ffc16fc9154c973f27d0fe8d8d4,
-    type: 3}
-  mainSpellPrefab: {fileID: 2540417558773106788, guid: 3fdd30d0b52b3864e92fe3606bf66eff,
-    type: 3}
+  incantationPrefab: {fileID: 2868296385495765804, guid: 503bd0f0096c8614cb518c7e0e13ee1a, type: 3}
+  spellBurstPrefab: {fileID: 7435820690753171035, guid: e87b8ffc16fc9154c973f27d0fe8d8d4, type: 3}
+  mainSpellPrefab: {fileID: 2540417558773106788, guid: 3fdd30d0b52b3864e92fe3606bf66eff, type: 3}
   castTime: 1
   cooldown: 1
   activationKey: 101

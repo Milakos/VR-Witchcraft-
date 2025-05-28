@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class InvastigateEnemyState : IEnemyState
 {
     public EnemyStateMachine _context;
+    public Action onAttack; 
     public void Enter(EnemyStateMachine context)
     {
         Debug.Log("Enter Investigate");
@@ -21,29 +23,25 @@ public class InvastigateEnemyState : IEnemyState
     }
     private void UpdateInvestigate()
     {
-        if (_context._fov.visibleObjects.Count > 0)
+        //to do Check to change to Chase and from Chase the Attack
+        if (_context.IsPlayerVisible())
         {
             _context.SetInvestigationPoint(_context._fov.visibleObjects[0].position);
             
-            if (Vector3.Distance(_context.transform.position, _context._fov.visibleObjects[0].position) < 5.0f)
+            if (Vector3.Distance(_context.transform.position, _context._fov.visibleObjects[0].position) < 10.0f)
             {
-                Debug.Log("Attack");
+                _context._agent.isStopped = true;
+                _context.ChangeState(new AttackEnemyState());
             }
         }
-        // if (Vector3.Distance(_context.transform.position, _context._investigationPoint) < _context._threshold)
-        // {
-        //     _context._waitTimer += Time.deltaTime;
-        //     if (_context._waitTimer > _context.waitTime)
-        //     {
-        //         ReturnToPatrol();
-        //     }
-        // }
-    }
-    private void ReturnToPatrol()
-    {
-        Debug.Log("Enemy returning to patrol");
-        _context.enemy.stateMachine.ChangeState(new PatrolEnemyState());
-        _context._waitTimer = 0;
-        _context._moving = false;
+        else
+        {
+            
+            if (Vector3.Distance(_context.transform.position, _context._investigationPoint) < _context._threshold)
+            {
+                _context.ReturnToPatrol();
+            } 
+            _context._playerFound = false;
+        }
     }
 }

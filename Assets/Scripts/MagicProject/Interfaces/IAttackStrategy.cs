@@ -1,4 +1,4 @@
 public interface IAttackStrategy
 {
-    void Attack(EnemyBase enemy);
+    void Attack(EnemyData enemy);
 }

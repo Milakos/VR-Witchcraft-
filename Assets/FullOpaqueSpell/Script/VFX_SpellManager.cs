@@ -7,6 +7,8 @@ namespace FullOpaqueVFX
     {
         public SpellData currentSpell;
         public Transform target;
+        [SerializeField] Transform IncantationPosition;
+        [SerializeField] Transform burstPosition;
         private bool isOnCooldown = false;
         private CameraShake cameraShake;
         public bool mockTrigger;
@@ -26,6 +28,15 @@ namespace FullOpaqueVFX
             }
         }
 
+        public void MockTriggerTrue()
+        {
+            mockTrigger = true;
+        }
+        public void MockTriggerFalse()
+        {
+            mockTrigger = false;
+        }
+
         private IEnumerator CastSpell()
         {
             if (!Application.isPlaying || target == null) yield break;
@@ -33,7 +44,7 @@ namespace FullOpaqueVFX
             isOnCooldown = true;
 
             // 1️⃣ Incantation
-            GameObject incantation = currentSpell.SpawnEffect(currentSpell.incantationPrefab, transform.position, Quaternion.identity);
+            GameObject incantation = currentSpell.SpawnEffect(currentSpell.incantationPrefab, IncantationPosition, Quaternion.identity);
             if (incantation != null)
             {
                 AdjustParticleLifetime(incantation, currentSpell.castTime);
@@ -61,7 +72,7 @@ namespace FullOpaqueVFX
             else if (currentSpell.spellTargetBehavior == SpellData.SpellTargetBehavior.FromCasterLookAtTarget)
             {
                 // On reste sur la position du caster et on oriente le sort vers la target (si assignée)
-                spawnPosition = transform.position;
+                spawnPosition = IncantationPosition.position;
                 if (target != null)
                 {
                     spawnRotation = Quaternion.LookRotation(target.position - transform.position);
@@ -99,8 +110,8 @@ namespace FullOpaqueVFX
             // 3️⃣ Gestion du Spell Burst
             if (currentSpell.spellBurstPrefab != null)
             {
-                Vector3 burstPosition = transform.position;
-                GameObject spellBurst = currentSpell.SpawnEffect(currentSpell.spellBurstPrefab, burstPosition, Quaternion.identity);
+                
+                GameObject spellBurst = currentSpell.SpawnEffect(currentSpell.spellBurstPrefab, burstPosition.position, Quaternion.identity);
                 if (spellBurst != null)
                 {
                     spellBurst.SetActive(true);

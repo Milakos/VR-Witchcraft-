@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: SD_Crystal_Nova
   m_EditorClassIdentifier: 
   spellName: Crystal Nova
-  incantationPrefab: {fileID: 428040756574707562, guid: c2988276cadc3d24eb93122a3e584aa1,
-    type: 3}
-  spellBurstPrefab: {fileID: 7736070195497459570, guid: 9db19b02b4eb0d046b650d91d2aa15d8,
-    type: 3}
-  mainSpellPrefab: {fileID: 517170533460803855, guid: 117f8a505030d254abaa098fdbd5b484,
-    type: 3}
+  incantationPrefab: {fileID: 428040756574707562, guid: c2988276cadc3d24eb93122a3e584aa1, type: 3}
+  spellBurstPrefab: {fileID: 7736070195497459570, guid: 9db19b02b4eb0d046b650d91d2aa15d8, type: 3}
+  mainSpellPrefab: {fileID: 517170533460803855, guid: 117f8a505030d254abaa098fdbd5b484, type: 3}
   castTime: 1
   cooldown: 1
   activationKey: 101
@@ -32,4 +29,4 @@ MonoBehaviour:
   spellColor: {r: 0, g: 1, b: 1, a: 1}
   spellTargetBehavior: 1
   spellTracking: 0
-  spawnOnGround: 1
+  spawnOnGround: 0
