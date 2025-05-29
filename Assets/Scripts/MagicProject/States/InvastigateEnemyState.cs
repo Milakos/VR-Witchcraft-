@@ -28,7 +28,7 @@ public class InvastigateEnemyState : IEnemyState
         {
             _context.SetInvestigationPoint(_context._fov.visibleObjects[0].position);
             
-            if (Vector3.Distance(_context.transform.position, _context._fov.visibleObjects[0].position) < 10.0f)
+            if (_context.IsInAttackRange())
             {
                 _context._agent.isStopped = true;
                 _context.ChangeState(new AttackEnemyState());
@@ -44,4 +44,6 @@ public class InvastigateEnemyState : IEnemyState
             _context._playerFound = false;
         }
     }
+
+
 }

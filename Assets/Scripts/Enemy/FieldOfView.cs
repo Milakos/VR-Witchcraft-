@@ -1,34 +1,40 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FullOpaqueVFX;
+using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
     public List<Transform> visibleObjects;
-    public EnemyBase enemy;
+    public Creature enemy;
     
     [SerializeField] private Color _gizmoColor = Color.red;
     [SerializeField] private float _viewRadius = 6f;
     [SerializeField] private float _viewAngle = 30f;
     [SerializeField] private LayerMask _blockingLayers;
+    
+    [SerializeField] private VFX_SpellManager _spellManager;
 
     // Update is called once per frame
     void Update()
     {
+        // if (enemy.stateMachine.hitted) return;
+        
         visibleObjects.Clear();
         
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, _viewRadius);
         foreach (Collider target in targetsInViewRadius)
         {
-            if (!target.TryGetComponent(out EnemyBase targetCreature))
+            if (!target.TryGetComponent(out Creature targetCreature))
             {
-                targetCreature = target.GetComponentInParent<EnemyBase>();
+                // targetCreature = target.GetComponent<XROrigin>();
                 if(!targetCreature) continue;
             }
             
-            if (enemy.enemyData.enemyType == targetCreature.enemyData.enemyType) continue;
+            if (enemy.team == targetCreature.team) continue;
 
             Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
 
@@ -47,7 +53,11 @@ public class FieldOfView : MonoBehaviour
                 
                 Debug.DrawLine(headPos,targetHeadPos, Color.green);
                 
-                visibleObjects.Add(target.transform);
+                visibleObjects.Add(targetCreature.gameObject.transform);
+                _spellManager.target = target.transform;
+                if(target == null)
+                    GetComponent<EnemyBase>().target = target.gameObject.transform;
+                // enemy.target = target.transform;
             }
         }
     }

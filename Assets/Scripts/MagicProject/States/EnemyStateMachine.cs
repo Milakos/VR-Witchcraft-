@@ -14,9 +14,11 @@ public class EnemyStateMachine : MonoBehaviour
     public FieldOfView _fov;
     internal Transform _currentPoint;
     
+    
     [Header("Timers")]
     public float _threshold = 0.5f;
-    public float waitTimer = 2.5f;
+    [SerializeField] private float distanceThreshold = 10.0f;
+    [SerializeField] private float waitTimer = 2.5f;
     public float coolDownTimer = 2.0f;
     
     [Header("Misc")]
@@ -30,16 +32,17 @@ public class EnemyStateMachine : MonoBehaviour
     public bool investigate = false;
     public bool attacking = false;
     public bool stunned = false;
+    public bool hitted = false;
     public bool dead = false;
     
     public bool _moving = false;
-    public bool _forwardsAlongPath = true;
+    
     public bool _playerFound = false;
     public bool _waiting = false;
     
     //Actions
     public Action _onAttack;
-    public Action<float> _onHitted;
+    public Action<float, Transform> _onHitted;
 
     private void Start()
     {
@@ -56,6 +59,7 @@ public class EnemyStateMachine : MonoBehaviour
     public void SetInvestigationPoint(Vector3 investigatePoint)
     {
         _investigationPoint = investigatePoint;
+        _agent.speed = 7f;
         _agent.SetDestination(_investigationPoint);
     }
     public void PlayerFound(Vector3 investigatePoint)
@@ -73,15 +77,6 @@ public class EnemyStateMachine : MonoBehaviour
             ChangeState(new AttackEnemyState());
         }
     }
-
-    public void FollowPlayer(Vector3 investigatePoint)
-    {
-        if (Vector3.Distance(transform.position, _fov.visibleObjects[0].position) > 10f)
-        {
-            SetInvestigationPoint(investigatePoint);
-        }
-    }
-
     public void ReturnToPatrol()
     {
         Debug.Log("Enemy returning to patrol");
@@ -95,6 +90,9 @@ public class EnemyStateMachine : MonoBehaviour
         yield return new WaitForSecondsRealtime(waitTimer);
         _waiting = false;
     }
-
     public bool IsPlayerVisible() => _fov.visibleObjects.Count > 0;
+    public bool IsInAttackRange()
+    {
+        return Vector3.Distance(transform.position, _fov.visibleObjects[0].position) < distanceThreshold;
+    }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class PatrolEnemyState : IEnemyState
 {
     private EnemyStateMachine _context;
+    public bool _forwardsAlongPath = true;
     public void Enter(EnemyStateMachine context)
     {
         _context = context;
@@ -32,6 +33,7 @@ public class PatrolEnemyState : IEnemyState
         {
             NextPatrolPoint();
             _context._agent.isStopped = false;
+            _context._agent.speed = 3.5f;
             _context._agent.SetDestination(_context._currentPoint.position);
             _context._moving = true;
         }
@@ -45,7 +47,7 @@ public class PatrolEnemyState : IEnemyState
 
     private void NextPatrolPoint()
     {
-        if (_context._forwardsAlongPath)
+        if (_forwardsAlongPath)
         {
             _context._routeIndex++;
         }
@@ -61,13 +63,13 @@ public class PatrolEnemyState : IEnemyState
             }
             else
             {
-                _context._forwardsAlongPath = false;
+                _forwardsAlongPath = false;
                 _context._routeIndex -= 2;
             }
         }
         if (_context._routeIndex == 0)
         {
-            _context._forwardsAlongPath = true;
+            _forwardsAlongPath = true;
         }
         _context._currentPoint = _context._patrolRoute.route[_context._routeIndex];
     }

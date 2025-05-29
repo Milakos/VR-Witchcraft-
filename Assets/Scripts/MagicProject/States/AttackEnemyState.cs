@@ -1,4 +1,5 @@
 using System;
+using FullOpaqueVFX;
 using UnityEngine;
 
 public class AttackEnemyState : IEnemyState
@@ -32,6 +33,7 @@ public class AttackEnemyState : IEnemyState
         {
             AnimatorStateInfo stateInfo = _context.animator.GetCurrentAnimatorStateInfo(0);
             // NormalizedAnimationPlayThrough(stateInfo);
+            if (_context._fov.visibleObjects.Count == 0) return;
             
             if (Vector3.Distance(_context.transform.position, _context._fov.visibleObjects[0].position) > 10f)
             {
@@ -49,41 +51,11 @@ public class AttackEnemyState : IEnemyState
     public void Exit()
     {
         _context.attacking = false;
-        // _context.enemy.enemyData.play = false;
+        _context.animator.SetLayerWeight(1, 0.0f);
+        var spell = _context.GetComponent<VFX_SpellManager>();
+        spell.MockTriggerFalse();
+        spell.target = null;
         _context.animator.StopPlayback();
     }
-    // private void NormalizedAnimationPlayThrough(AnimatorStateInfo stateInfo)
-    // {
-    //     // Check if the animator is playing the desired state
-    //     if (stateInfo.IsName("SpellCast"))
-    //     {
-    //         // normalizedTime goes from 0 to 1 for a single playthrough
-    //         if (animationDuration >= stateInfo.normalizedTime  && !hasFinished)
-    //         {
-    //             hasFinished = true;
-    //             _context.enemy.enemyData.play = true;
-    //             _context._onAttack?.Invoke();
-    //         }
-    //     }
-    //     else
-    //     {
-    //         _context.enemy.enemyData.play = false;
-    //         hasFinished = false;
-    //     }
-    // }
-    // float GetAnimationClipLength(string clipName, Animator animator)
-    // {
-    //     RuntimeAnimatorController ac = animator.runtimeAnimatorController;
-    //
-    //     foreach (var clip in ac.animationClips)
-    //     {
-    //         if (clip.name == clipName)
-    //         {
-    //             return clip.length;
-    //         }
-    //     }
-    //
-    //     Debug.LogWarning("Animation clip not found!");
-    //     return 0f;
-    // }
+
 }

@@ -22,7 +22,8 @@ public class IdleEnemyState : IEnemyState
         {
             if (_context.IsPlayerVisible())
             {
-                _context.PlayerFound(_context._fov.visibleObjects[0].position);
+                if(_context._fov.visibleObjects.Count != 0) 
+                    _context.PlayerFound(_context._fov.visibleObjects[0].position);
             }
             else
             {

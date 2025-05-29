@@ -12,16 +12,19 @@ namespace FullOpaqueVFX
         private bool isOnCooldown = false;
         private CameraShake cameraShake;
         public bool mockTrigger;
+        [SerializeField] private FieldOfView _fov;
         void Start()
         {
             if (!Application.isPlaying) return;
             cameraShake = FindObjectOfType<CameraShake>();
+            
+            _fov = GetComponent<FieldOfView>();
         }
 
         void Update()
         {
             if (!Application.isPlaying) return;
-
+            
             if (currentSpell != null && mockTrigger && !isOnCooldown)
             {
                 StartCoroutine(CastSpell());

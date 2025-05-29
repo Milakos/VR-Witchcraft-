@@ -21,6 +21,8 @@ public class EnemyData : ScriptableObject
     
     public float maxHealth;
 
+    public float rangeDamage;
+    
     public SpellData spellData;
     public float maxMana;
     public float manaReduceRate;

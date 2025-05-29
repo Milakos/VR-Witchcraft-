@@ -16,7 +16,8 @@ MonoBehaviour:
   enemyType: 0
   fighterType: 0
   maxHealth: 100
+  rangeDamage: 25
   spellData: {fileID: 11400000, guid: 726a29a1110740646910914dd127673b, type: 2}
-  maxMana: 0
-  manaReduceRate: 10
+  maxMana: 100
+  manaReduceRate: 20
   play: 1

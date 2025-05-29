@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Doctor
   m_EditorClassIdentifier: 
   enemyName: Doctor
-  enemyType: 1
+  enemyType: 0
   fighterType: 1
   maxHealth: 100
+  rangeDamage: 15
   spellData: {fileID: 11400000, guid: af92517766f9b134a9e0879b0b8234a4, type: 2}
-  maxMana: -5
+  maxMana: 100
   manaReduceRate: 15
   play: 1

@@ -7,6 +7,7 @@ public class StunnedEnemyState : IEnemyState
     {
         Debug.Log("Enter Stunned");
         _context = context;
+        _context.hitted = true;
         
         if (_context.enemy.currentHealth >= 60)
         {
@@ -21,29 +22,11 @@ public class StunnedEnemyState : IEnemyState
     }
     public void Execute()
     {
-        
+        _context.transform.LookAt(_context.enemy.target.transform);
     }
     public void Exit()
     {
+        _context.hitted = false;
         _context.stunned = false;
-    }
-}
-public class DeadEnemyState : IEnemyState
-{
-    public EnemyStateMachine _context;
-    public void Enter(EnemyStateMachine context)
-    {
-        Debug.Log("Enter Dead");
-        _context = context;
-        _context.animator.Play("Death"); 
-        context.dead = true;
-    }
-    public void Execute()
-    {
-        
-    }
-    public void Exit()
-    {
-        _context.dead = false;
     }
 }
